@@ -4,15 +4,21 @@ import { CartItem } from './index'
 
 interface Props {
   item: CartItem,
-  checked: boolean
+  index: number,
+  checked: boolean,
+  onCheckedChange: OnCheckedChange<CartItem>
 }
+
+export type OnCheckedChange<T> = (cartItem: CartItem, index: number, b: boolean) => any
+
 const ItemCard = React.memo((props: Props) => {
   console.log('cart item rerender')
-  const { item, checked } = props
+  const { item, index, checked, onCheckedChange } = props
   const { name, price } = item
 
   const onWrapCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target)
+    const { checked } = e.target
+    onCheckedChange(item, index, checked)
   }
 
   return (
