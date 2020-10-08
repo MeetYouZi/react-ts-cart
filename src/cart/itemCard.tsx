@@ -1,24 +1,29 @@
-import React, { useMemo} from 'react'
-import { Typography } from 'antd'
-import { CartItem } from './index'
+import React from "react"
+import { CartItem } from "./"
+import { OnCheckedChange } from './useCart'
+import { Typography } from "antd"
 
 interface Props {
-  item: CartItem,
-  index: number,
-  checked: boolean,
+  item: CartItem
+  checked: boolean
   onCheckedChange: OnCheckedChange<CartItem>
 }
 
-export type OnCheckedChange<T> = (cartItem: CartItem, index: number, b: boolean) => any
+// memo优化策略
+function areEqual(prevProps: Props, nextProps: Props) {
+  return (
+    prevProps.checked === nextProps.checked
+  )
+}
 
 const ItemCard = React.memo((props: Props) => {
   console.log('cart item rerender')
-  const { item, index, checked, onCheckedChange } = props
+  const { item, checked, onCheckedChange } = props
   const { name, price } = item
 
   const onWrapCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target
-    onCheckedChange(item, index, checked)
+    onCheckedChange(item, checked)
   }
 
   return (
@@ -35,6 +40,7 @@ const ItemCard = React.memo((props: Props) => {
       </p>
     </div>
   )
-})
+}, areEqual)
+
 
 export default ItemCard
