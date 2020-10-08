@@ -1,7 +1,7 @@
-import React from "react"
-import { CartItem } from "./"
+import React from 'react'
+import { CartItem } from './'
 import { OnCheckedChange } from './useCart'
-import { Typography } from "antd"
+import { Typography } from 'antd'
 
 interface Props {
   item: CartItem
@@ -18,11 +18,11 @@ function areEqual(prevProps: Props, nextProps: Props) {
 
 const ItemCard = React.memo((props: Props) => {
   console.log('cart item rerender')
-  const { item, checked, onCheckedChange } = props
-  const { name, price } = item
+  const {item, checked, onCheckedChange} = props
+  const {name, price} = item
 
   const onWrapCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { checked } = e.target
+    const {checked} = e.target
     onCheckedChange(item, checked)
   }
 
